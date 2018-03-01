@@ -2,6 +2,8 @@
 using Discord.WebSocket;
 using System.Threading.Tasks;
 using System.Reflection;
+using System.IO;
+using System;
 
 namespace Looking_For_Group_Bot
 {
@@ -21,6 +23,8 @@ namespace Looking_For_Group_Bot
 
             _client.MessageReceived += HandleCommandAsync;
         }
+
+        public static object Commandservice { get; internal set; }
 
         private async Task HandleCommandAsync(SocketMessage s)
         {

@@ -19,8 +19,13 @@ namespace Looking_For_Group_Bot
 
         public async Task StartAsync()
         {
-            _client = new DiscordSocketClient();
+            _client = new DiscordSocketClient(new DiscordSocketConfig
+            {
+                LogLevel = LogSeverity.Info
+            });
 
+            _client.Log += Log;
+            
             await _client.LoginAsync(TokenType.Bot, botToken.ReadLine());
 
             await _client.StartAsync();
@@ -28,6 +33,11 @@ namespace Looking_For_Group_Bot
             _handler = new CommandHandler(_client);
 
             await Task.Delay(-1);
+        }
+        private Task Log(LogMessage message)
+        {
+            Console.WriteLine(message.ToString());
+            return Task.CompletedTask;
         }
     }
 }
