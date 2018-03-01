@@ -73,6 +73,9 @@ namespace Looking_For_Group_Bot.Modules
             }
 
             await Context.Channel.SendMessageAsync($"Added {playerName} to Group {rolelinq.Name.TrimStart(GroupDiscriminator)}.");
+            
+            //deletes the input command
+            await Context.Message.DeleteAsync();
         }
 
         [Command("leave")]
@@ -106,6 +109,9 @@ namespace Looking_For_Group_Bot.Modules
             }
 
             await Context.Channel.SendMessageAsync($"Removed {playerName} from Group {rolelinq.Name.TrimStart(GroupDiscriminator)}.");
+
+            //deletes the input command
+            await Context.Message.DeleteAsync();
         }
 
         [Command("join-all")]
@@ -129,6 +135,9 @@ namespace Looking_For_Group_Bot.Modules
             await Context.Guild.GetUser(Context.User.Id).AddRolesAsync(roleQuery);
 
             await Context.Channel.SendMessageAsync($"Added {playerName} to all Groups.");
+
+            //deletes the input command
+            await Context.Message.DeleteAsync();
         }
         [Command("leave-all")]
         [Name("Leave-All")]
@@ -150,6 +159,9 @@ namespace Looking_For_Group_Bot.Modules
             await Context.Guild.GetUser(Context.User.Id).RemoveRolesAsync(roleQuery);
 
             await Context.Channel.SendMessageAsync($"Removed {playerName} from all Group.");
+
+            //deletes the input command
+            await Context.Message.DeleteAsync();
         }
     }
 }
