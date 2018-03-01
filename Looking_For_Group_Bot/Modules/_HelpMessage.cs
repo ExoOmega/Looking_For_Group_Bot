@@ -18,6 +18,7 @@ namespace Looking_For_Group_Bot.Modules
             await Context.Channel.TriggerTypingAsync();
 
             var content = new StringBuilder();
+            content.AppendLine("Example Usage: **>Lfg Join-All**");
             content.AppendLine("```");
             foreach (var module in CommandService.Modules)
             {

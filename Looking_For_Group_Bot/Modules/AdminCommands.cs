@@ -14,6 +14,8 @@ namespace Looking_For_Group_Bot.Modules
     public class AdminCommands : ModuleBase<SocketCommandContext>
     {
         [Command]
+        [Name("List")]
+        [Alias("list")]
         public async Task DefaultAdminList()
         {
             var GroupDiscriminator = '~';
@@ -45,6 +47,8 @@ namespace Looking_For_Group_Bot.Modules
         }
 
         [Command("create")]
+        [Name("Create [Group Name]")]
+        [Summary("Creates a Role group")]
         public async Task CreateRoleCommand([Remainder] string msg = null)
         {
             var GroupDiscriminator = '~';
@@ -81,6 +85,8 @@ namespace Looking_For_Group_Bot.Modules
         }
 
         [Command("delete")]
+        [Name("Delete [Group Name]")]
+        [Summary("Deletes a Role group")]
         public async Task DeleteRoleCommnand([Remainder] string msg = null)
         {
             var GroupDiscriminator = '~';
@@ -94,20 +100,33 @@ namespace Looking_For_Group_Bot.Modules
                 from role in Context.Guild.Roles
                 where role.Name.ToUpper() == GroupDiscriminator + msg.ToUpper()
                 select role;
-            var rolelinq = roleQuery.ElementAtOrDefault(0);
-
             var requestOptions = new RequestOptions
             {
                 AuditLogReason = $"{UserName}#{UserDescriminator} has deleted Role {GroupDiscriminator}{msg}"
             };
 
-            await rolelinq.DeleteAsync(requestOptions);
+            try
+            {
+                var rolelinq = roleQuery.ElementAtOrDefault(0);
+                await rolelinq.DeleteAsync(requestOptions);
+            }
+            catch
+            {
+                await ReplyAsync($"Group {msg} does not exist. Please verify spelling and try again.");
+                return;
+            }
+
+
+
+            
 
             await ReplyAsync($"Group {msg} has been **DELETED.**");
 
         }
 
         [Command("clean")]
+        [Name("Clean [Group Name]")]
+        [Summary("Removes all users from the request group")]
         public async Task CleanRoleCommand([Remainder] string msg = null)
         {
             await DeleteRoleCommnand(msg);

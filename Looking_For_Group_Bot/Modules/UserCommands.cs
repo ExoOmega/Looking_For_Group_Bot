@@ -11,6 +11,8 @@ namespace Looking_For_Group_Bot.Modules
     public class UserCommands : ModuleBase<SocketCommandContext>
     {
         [Command]
+        [Name("List")]
+        [Alias("list")]
         public async Task DefaultList()
         {
             var GroupDiscriminator = '~';
@@ -42,6 +44,8 @@ namespace Looking_For_Group_Bot.Modules
         }
 
         [Command("join")]
+        [Name("Join [Group Name]")]
+        [Summary("Joins a LFG Bot created Role group")]
         public async Task JoinGroup([Remainder] string msg = null)
         {
             var GroupDiscriminator = '~';
@@ -72,6 +76,8 @@ namespace Looking_For_Group_Bot.Modules
         }
 
         [Command("leave")]
+        [Name("Leave [Group Name]")]
+        [Summary("Leaves a LFG Bot created Role group")]
         public async Task LeaveGroup([Remainder] string msg = null)
         {
             var GroupDiscriminator = '~';
@@ -103,6 +109,8 @@ namespace Looking_For_Group_Bot.Modules
         }
 
         [Command("join-all")]
+        [Name("Join-All")]
+        [Summary("Joins all LFG Bot created Role groups")]
         public async Task JoinAll([Remainder] string msg = null)
         {
             var GroupDiscriminator = '~';
@@ -123,6 +131,8 @@ namespace Looking_For_Group_Bot.Modules
             await Context.Channel.SendMessageAsync($"Added {playerName} to all Groups.");
         }
         [Command("leave-all")]
+        [Name("Leave-All")]
+        [Summary("Leaves all LFG Bot created Role groups")]
         public async Task LeaveAll([Remainder] string msg = null)
         {
             var GroupDiscriminator = '~';
