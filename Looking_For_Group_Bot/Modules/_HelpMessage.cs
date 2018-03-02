@@ -18,7 +18,7 @@ namespace Looking_For_Group_Bot.Modules
             await Context.Channel.TriggerTypingAsync();
 
             var content = new StringBuilder();
-            content.AppendLine("Example Usage: **>Lfg Join-All**");
+            content.AppendLine("Example Usage: **>Lfg Join [Group Name]**");
             content.AppendLine("```");
             foreach (var module in CommandService.Modules)
             {
@@ -31,7 +31,7 @@ namespace Looking_For_Group_Bot.Modules
 
                 content.AppendLine();
             }
-            content.AppendLine("Version 1.2");
+            content.AppendLine("Version 1.2.1");
             content.AppendLine("```");
 
             await ReplyAsync(content.ToString());
