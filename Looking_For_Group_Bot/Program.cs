@@ -27,10 +27,11 @@ namespace Looking_For_Group_Bot
             _client.Log += Log;
             
             await _client.LoginAsync(TokenType.Bot, botToken.ReadLine());
-
+            await _client.SetGameAsync(">help for Commands");
             await _client.StartAsync();
 
             _handler = new CommandHandler(_client);
+
 
             await Task.Delay(-1);
         }
