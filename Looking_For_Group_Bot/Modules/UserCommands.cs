@@ -249,7 +249,8 @@ namespace Looking_For_Group_Bot.Modules
         [Name("Ping [Group Name]")]
         [Summary("Pings the specified Group")]
         [RequireBotPermission(GuildPermission.ManageRoles)]
-        [RequireUserPermission(GuildPermission.ManageRoles)]
+        [RequireUserPermission(GuildPermission.ManageRoles, Group = "1")]
+        [RequireRaiderRole(Group = "1")]
         public async Task PingRole([Remainder] string msg = null)
         {
             await Context.Channel.TriggerTypingAsync();

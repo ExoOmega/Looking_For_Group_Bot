@@ -31,7 +31,7 @@ namespace Looking_For_Group_Bot.Modules
 
                 content.AppendLine();
             }
-            content.AppendLine("Version 1.2.3");
+            content.AppendLine("Version 1.2.4");
             content.AppendLine("```");
 
             await ReplyAsync(content.ToString());
