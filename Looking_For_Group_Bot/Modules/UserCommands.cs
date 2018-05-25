@@ -251,10 +251,10 @@ namespace Looking_For_Group_Bot.Modules
         [RequireBotPermission(GuildPermission.ManageRoles)]
         [RequireUserPermission(GuildPermission.ManageRoles, Group = "1")]
         [RequireRaiderRole(Group = "1")]
-        public async Task PingRole([Remainder] string msg = null)
+        public async Task PingRole(string group = null, [Remainder] string comment = "No Comment Included.")
         {
             await Context.Channel.TriggerTypingAsync();
-            if (msg == null)
+            if (group == null)
             {
                 await ReplyAsync("Group Name can not be empty. Please try again and include a Group Name to ping.");
                 return;
@@ -265,12 +265,12 @@ namespace Looking_For_Group_Bot.Modules
 
             var requestOptions = new RequestOptions
             {
-                AuditLogReason = $"Setting {GroupDiscriminator}{msg} to mentionable."
+                AuditLogReason = $"Setting {GroupDiscriminator}{group} to mentionable."
             };
 
             IEnumerable<IRole> roleQuery =
                 from role in Context.Guild.Roles
-                where role.Name.ToUpper() == GroupDiscriminator + msg.ToUpper()
+                where role.Name.ToUpper() == GroupDiscriminator + @group.ToUpper()
                 select role;
             try
             {
@@ -279,7 +279,7 @@ namespace Looking_For_Group_Bot.Modules
                 {
                     x.Mentionable = true;
                 });
-                await ReplyAsync($"{Context.User.Mention} has Pinged Group {rolelinq.Mention}");
+                await ReplyAsync($"{Context.User.Mention} has Pinged Group {rolelinq.Mention} with comment: {comment}");
                 await rolelinq.ModifyAsync(x =>
                 {
                     x.Mentionable = false;
@@ -287,7 +287,7 @@ namespace Looking_For_Group_Bot.Modules
             }
             catch
             {
-                await ReplyAsync($"Group {msg} does not exist. Please verify spelling and try again.");
+                await ReplyAsync($"Group {group} does not exist. Please verify spelling and try again.");
                 return;
             }
 
